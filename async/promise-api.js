@@ -23,6 +23,6 @@ const linkedInRequest = new Promise(((resolve, reject) => {
 }));
 
 // kick off all promise
-Promise.race([facebookRequest, twitterRequest, linkedInRequest])
+const finalResult = Promise.all([facebookRequest, twitterRequest, linkedInRequest])
     .then(result => console.log(result))
     .catch(error => console.log(error.message));
