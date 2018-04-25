@@ -16,7 +16,7 @@ console.log('After');
 function getUser(id, callback) {
     setTimeout(() => {
         console.log('Reading user information from database ...');
-        callback({ id: id, gitHubUserName: 'tinhcao' });
+        callback({id: id, gitHubUserName: 'tinhcao'});
     }, 2000);
 };
 
