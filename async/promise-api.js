@@ -11,7 +11,7 @@ const twitterRequest = new Promise(((resolve, reject) => {
         console.log('Getting Twitter twit ...');
         resolve('Trump twit');
         // reject(new Error('Error when getting Twitter twit'));
-    }, 2000);
+    }, 1000);
 }));
 
 const linkedInRequest = new Promise(((resolve, reject) => {
