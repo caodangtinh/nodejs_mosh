@@ -6,11 +6,36 @@ const schema = mongoose.Schema({
         type: String,
         required: true
     },
+    category: {
+        type: String,
+        required: true,
+        enum: ['web', 'mobile', 'network']
+    },
     author: String,
-    tags: [String],
+    tags: {
+        type: Array,
+        validate: {
+            isAsync: true,
+            validator: function (v, cb) {
+                setTimeout(function () {
+                    const result = v && v.length > 0;
+                    console.log('validation result : ' + result);
+                    cb(result);
+                }, 4000);
+            },
+            message: 'A course should have at least one tag.'
+        }
+    },
     date: { type: Date, default: Date.now() },
     isPublished: Boolean,
-    price: Number
+    price: {
+        type: Number,
+        required: function () {
+            return this.isPublished;
+        },
+        min: 5,
+        max: 200
+    }
 });
 
 // get Model from schema

@@ -39,10 +39,16 @@ route.post('/', (req, res, next) => {
             author: body.author,
             tags: body.tags,
             isPublished: body.isPublished,
-            price: body.price
+            price: body.price,
+            category: body.category
         });
-        const result = await course.save();
-        res.send(result);
+        try {
+            const result = await course.save();
+            res.send(result);
+        } catch (error) {
+            // console.log(error.message);
+            res.send(error.message);
+        }
     };
     saveCourse();
 });
