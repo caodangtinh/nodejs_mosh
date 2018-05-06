@@ -1,43 +1,60 @@
 const express = require('express');
 const route = express.Router();
 const mongoose = require('mongoose');
+const Course = require('../models/Course');
+
+/**
+ * Get all Course
+ */
 
 route.get('/', (req, res, next) => {
-    // connect to mongodb
-    mongoose.connect('mongodb://localhost:27017/validator')
-        .then(result => console.log('Successful connect to mongodb'))
-        .catch(error => console.log('Error while connect to mongodb ' + error.message));
-    // create schema
-    const schema = mongoose.Schema({
-        name: String,
-        author: String,
-        tags: [String],
-        date: { type: Date, default: Date.now() },
-        isPublished: Boolean,
-        price: Number
-    });
-    // create model
-    const Course = mongoose.model('Course', schema);
-    // create data
-    const nodejs = new Course({
-        name: 'Node.js',
-        author: 'mosh',
-        tags: ['Node.js', 'JS'],
-        isPublished: true,
-        price: 15
-    });
-    async function saveData() {
-        await nodejs.save();
-    };
-    // saveData();
-    // query data
     async function getAllCourse() {
-        const result = await Course.find({ isPublished: true })
-            .select({ name: 1 });
+        const result = await Course.find();
         res.send(result);
-    }
+    };
     getAllCourse();
 });
+/**
+ * Get Course by Id
+ */
+
+route.get('/:id', (req, res, next) => {
+    async function getById() {
+        const id = req.params.id;
+        const result = await Course.findById(id);
+        res.send(result);
+    };
+    getById();
+});
+
+/**
+ * Add new Course
+ */
+
+route.post('/', (req, res, next) => {
+    async function saveCourse() {
+        const body = req.body;
+        const course = new Course({
+            name: body.name,
+            author: body.author,
+            tags: body.tags,
+            isPublished: body.isPublished,
+            price: body.price
+        });
+        const result = await course.save();
+        res.send(result);
+    };
+    saveCourse();
+});
+
+/**
+* Update Course
+*/
+
+/**
+ * Delete new Course
+ */
+
 
 // exports
 module.exports = route;
