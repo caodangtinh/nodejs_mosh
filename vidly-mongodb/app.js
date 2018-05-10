@@ -8,6 +8,7 @@ const genresRoute = require('./routes/genres');
 
 // use morgan for logging
 app.use(morgan('dev'));
+app.use(express.json());
 // routing rule
 app.use('/', indexRoute);
 app.use('/api/genres', genresRoute);

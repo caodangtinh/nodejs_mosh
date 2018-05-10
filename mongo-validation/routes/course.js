@@ -7,50 +7,41 @@ const Course = require('../models/Course');
  * Get all Course
  */
 
-route.get('/', (req, res, next) => {
-    async function getAllCourse() {
-        const result = await Course.find();
-        res.send(result);
-    };
-    getAllCourse();
+route.get('/', async (req, res, next) => {
+    const result = await Course.find();
+    res.send(result);
 });
 /**
  * Get Course by Id
  */
 
-route.get('/:id', (req, res, next) => {
-    async function getById() {
-        const id = req.params.id;
-        const result = await Course.findById(id);
-        res.send(result);
-    };
-    getById();
+route.get('/:id', async (req, res, next) => {
+    const id = req.params.id;
+    const result = await Course.findById(id);
+    res.send(result);
 });
 
 /**
  * Add new Course
  */
 
-route.post('/', (req, res, next) => {
-    async function saveCourse() {
-        const body = req.body;
-        const course = new Course({
-            name: body.name,
-            author: body.author,
-            tags: body.tags,
-            isPublished: body.isPublished,
-            price: body.price,
-            category: body.category
-        });
-        try {
-            const result = await course.save();
-            res.send(result);
-        } catch (error) {
-            // console.log(error.message);
-            res.send(error.message);
-        }
-    };
-    saveCourse();
+route.post('/', async (req, res, next) => {
+    const body = req.body;
+    const course = new Course({
+        name: body.name,
+        author: body.author,
+        tags: body.tags,
+        isPublished: body.isPublished,
+        price: body.price,
+        category: body.category
+    });
+    try {
+        const result = await course.save();
+        res.send(result);
+    } catch (error) {
+        // console.log(error.message);
+        res.send(error.message);
+    }
 });
 
 /**
