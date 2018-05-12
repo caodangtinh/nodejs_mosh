@@ -32,6 +32,9 @@ route.get('/:id', async (req, res, next) => {
             .find({ _id: id })
             .select({ name: 1, phone: 1, isGold: 1 })
             .sort({ name: 1 });
+        if (!result) {
+            res.status(404).send('Not found id ' + id);    
+        }
         res.status(200).send(result);
     } catch (error) {
         res.status(400).send(error.message);
