@@ -1,0 +1,9 @@
+{
+    "db": {
+        "url": "mongodb://localhost:27017/user"
+    },
+    "server": {
+        "port": 8080
+    },
+    "jwtPrivateKey": "tinhcao_privatekey"
+}
