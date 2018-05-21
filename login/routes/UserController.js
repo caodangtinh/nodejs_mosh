@@ -30,8 +30,9 @@ route.post('/', auth, async (req, res, next) => {
     // });
     try {
         const result = await newUser.save();
-        const token = jwt.sign(_.pick(newUser, ['_id', 'name', 'email']), config.get('jwtPrivateKey'));
-        res.status(201).header('token', token).send(_.pick(newUser, ['_id', 'name', 'email']));
+        // const token = jwt.sign(_.pick(newUser, ['_id', 'name', 'email']), config.get('jwtPrivateKey'));
+        // res.status(201).header('token', token).send(_.pick(newUser, ['_id', 'name', 'email']));
+        res.status(201).send(_.pick(newUser, ['_id', 'name', 'email']));
     } catch (error) {
         res.status(400).send('Error while trying to save new User ' + error.message);
     }
