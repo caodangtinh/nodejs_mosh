@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt');
 const Joi = require('joi');
 const config = require('config');
 /**
- * Create new user
+ * Login
  */
 route.post('/', async (req, res, next) => {
     const { error } = validateUser(req.body);
@@ -23,7 +23,7 @@ route.post('/', async (req, res, next) => {
     if (!result)
         return res.status(404).send('Invalid email or password');
     const token = jwt.sign((_.pick(user, ['_id', 'name', 'email'])), config.get('jwtPrivateKey'));
-    res.status(200).send(token);
+    res.status(200).header('token', token).send(token);
 });
 
 // Joi validation
